@@ -1,0 +1,1191 @@
+% Kompilasi: xelatex -interaction=nonstopmode -halt-on-error Panduan_Matematika_Bisnis_Modul_1-14.tex
+% Jalankan dua kali agar daftar isi dan rujukan halaman diperbarui.
+% Sumber: PDF pengguna; penjelasan berulang dipadukan per modul tanpa menghapus materi.
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=23mm,headheight=15pt,footskip=12mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Latin Modern Roman}
+\setsansfont{Latin Modern Sans}
+\usepackage{babel}
+\babelprovide[main,import]{indonesian}
+\usepackage{amsmath,amssymb}
+\usepackage{unicode-math}
+\setmathfont{Latin Modern Math}
+\usepackage{booktabs,longtable,array,tabularx}
+\usepackage[table]{xcolor}
+\usepackage{enumitem,needspace,titlesec,fancyhdr,microtype}
+\usepackage[unicode,colorlinks=true,linkcolor=blue!40!black,urlcolor=blue!40!black]{hyperref}
+\hypersetup{pdftitle={Panduan Lengkap Matematika Bisnis Modul 1–14},pdfsubject={Persamaan LaTeX, penurunan rumus, contoh, dan latihan}}
+\definecolor{navy}{HTML}{183A56}
+\definecolor{teal}{HTML}{00788A}
+\titleformat{\section}{\Large\sffamily\bfseries\color{navy}}{}{0pt}{}
+\titleformat{\subsection}{\large\sffamily\bfseries\color{teal}}{}{0pt}{}
+\titleformat{\subsubsection}{\normalsize\sffamily\bfseries\color{navy}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{0pt}{12pt}
+\titlespacing*{\subsection}{0pt}{14pt}{6pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt}
+\setlength{\emergencystretch}{2em}
+\linespread{1.06}
+\raggedbottom
+\setcounter{secnumdepth}{0}
+\setcounter{tocdepth}{1}
+\setlist{nosep,leftmargin=*}
+\renewcommand{\arraystretch}{1.22}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily\color{navy}Matematika Bisnis}
+\fancyhead[R]{\small\sffamily Modul 1--14}
+\fancyfoot[L]{\footnotesize\sffamily Panduan lengkap • Edisi LaTeX}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\newcommand{\modul}[2]{\clearpage\section{Modul #1 --- #2}}
+\newcommand{\bagian}[1]{\Needspace{5\baselineskip}\subsection{#1}}
+\newcommand{\catatan}[1]{\par\textbf{Catatan ketelitian.} #1\par}
+\newcommand{\jembatan}[1]{\par\textbf{Keterkaitan antarmodul.} #1\par}
+\newcommand{\CTR}{\mathrm{CTR}}
+\newcommand{\CVR}{\mathrm{CVR}}
+\newcommand{\CPM}{\mathrm{CPM}}
+\newcommand{\CPC}{\mathrm{CPC}}
+\newcommand{\CPA}{\mathrm{CPA}}
+\newcommand{\CAC}{\mathrm{CAC}}
+\newcommand{\ROAS}{\mathrm{ROAS}}
+\newcommand{\ROI}{\mathrm{ROI}}
+\newcommand{\LTV}{\mathrm{LTV}}
+\newcommand{\PV}{\mathrm{PV}}
+\newcommand{\NPV}{\mathrm{NPV}}
+% Format Indonesia: pemisah ribuan titik; koma desimal diberi kurung kurawal dalam matematika.
+\newcommand{\rp}[1]{\ensuremath{\mathrm{Rp}\,#1}}
+\begin{document}
+\begin{titlepage}
+\vspace*{25mm}
+{\sffamily\color{teal}\large D4 PEMASARAN DIGITAL\par}
+\vspace{12mm}
+{\sffamily\bfseries\color{navy}\Huge Panduan Lengkap\\[5mm]Matematika Bisnis\par}
+\vspace{8mm}
+{\sffamily\LARGE Modul 1--14\par}
+\vspace{8mm}
+{\large Semester 1 • 2 SKS\par}
+\vspace{18mm}
+{\large Persamaan, penurunan rumus, contoh perhitungan,\\latihan dengan pembahasan, dan keterkaitan antarmodul.\par}
+\vfill
+\textbf{Edisi penataan ulang dengan LaTeX}\par
+Disusun ulang dari dokumen sumber yang diberikan pengguna. Seluruh pokok pembahasan ringkas dan pendalaman dipadukan per modul; contoh yang berbeda, latihan, asumsi, serta catatan interpretasi tetap disertakan.
+\par
+Notasi matematika ditulis sebagai persamaan LaTeX, dengan pecahan, indeks, pangkat, persen, dan persamaan multiline yang ditata secara konsisten.
+\end{titlepage}
+\tableofcontents
+\clearpage
+\section{Cara membaca dan konvensi notasi}
+Panduan ini menghubungkan konsep matematika yang telah dikuasai dosen Matematika Murni dengan istilah dan keputusan dalam bisnis digital. Materi disusun sebagai panduan penjelasan dan ringkasan lintas modul. Urutan pertemuan, penilaian, dan capaian pembelajaran resmi tetap perlu dicocokkan dengan RPS yang berlaku.
+
+Setiap modul memuat arti bisnis, rumus inti dan penurunannya, contoh numerik, kesalahan interpretasi, latihan dengan pembahasan, serta sambungan konseptual. Semua angka contoh bersifat ilustratif atau mengikuti contoh pada dokumen sumber. Model tambahan ditandai sebagai pengayaan matematis. Data riil dapat memerlukan penyesuaian atribusi, pajak, retur, dan biaya tambahan.
+
+\bagian{Notasi yang digunakan}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{27mm}>{\raggedright\arraybackslash}p{123mm}@{}}
+\toprule\textbf{Notasi}&\textbf{Arti dan satuan}\\\midrule\endhead
+\(I,J,K,Q\)&Impresi, jangkauan akun unik, klik, dan pesanan; semuanya berupa hitungan dengan unit pengamatan berbeda.\\
+\(B,R\)&Biaya iklan dan omzet, dalam rupiah untuk periode yang konsisten.\\
+\(p,k\)&Harga jual dan modal barang per pesanan. Simbol \(k\) menggantikan modal \(c\) atau \(C\) pada beberapa bagian sumber agar tidak tertukar dengan kontribusi.\\
+\(v,F\)&Biaya variabel per pesanan dan biaya tetap per periode.\\
+\(c,a\)&Kontribusi per pesanan, \(c=p-v\), dan biaya iklan per pesanan, \(a=\CPA\).\\
+\(m,u\)&Rasio margin terhadap harga dan rasio markup terhadap modal.\\
+\(\delta,\tau\)&Tingkat diskon harga dan tarif biaya proporsional terhadap harga.\\
+\(r,h,d\)&Retensi, churn, dan tingkat diskonto per periode; \(h=1-r\).\\
+\(b,t\)&Kontribusi per pelanggan per periode dan indeks waktu. Simbol \(b\) membedakan kontribusi periodik dari kontribusi per pesanan \(c\).\\
+\(L,C(Q)\)&Laba dan fungsi biaya total; cakupan biaya dinyatakan pada setiap model.\\
+\(N_{\text{baru}}\)&Jumlah pelanggan baru dalam periode dan cakupan kanal yang ditetapkan.\\
+\bottomrule
+\end{longtable}
+Persentase dalam perkalian digunakan sebagai bilangan desimal, misalnya \(2\%=0{,}02\). Titik digunakan sebagai pemisah ribuan dan koma sebagai tanda desimal. Semua pembagi harus tidak nol. Tanda \(\approx\) menyatakan pembulatan; perhitungan sebaiknya mempertahankan presisi hingga hasil akhir.
+
+Untuk model LTV, periode kontribusi, retensi, dan diskonto harus sama. Satu kontribusi per pelanggan per bulan belum tentu sama dengan kontribusi per pesanan: keduanya sama hanya bila asumsi frekuensi pembelian mendukungnya.
+
+\clearpage
+\section{Tabel ringkasan konsep untuk dosen Matematika Murni}
+Istilah bisnis berikut merupakan penerapan konsep matematika yang telah dikenal. Tabel menggabungkan ringkasan awal dan tabel lengkap pada sumber, termasuk rumus serta kegunaannya.
+\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{10mm}>{\raggedright\arraybackslash}p{31mm}>{\raggedright\arraybackslash}p{42mm}>{\raggedright\arraybackslash}p{67mm}@{}}
+\toprule\textbf{Mod.}&\textbf{Pokok bahasan}&\textbf{Konsep matematika}&\textbf{Rumus dan kegunaan}\\\midrule\endhead
+1&Persentase, rasio, prorating&Pecahan, perubahan relatif, proporsi&\(g=\dfrac{x_1-x_0}{x_0}\); \(A_i=\dfrac{Bw_i}{\sum_jw_j}\). Pertumbuhan dan alokasi.\\[3pt]
+2&Rata-rata tertimbang, indeks&Statistika deskriptif, normalisasi&\(\bar{x}_w=\dfrac{\sum_iw_ix_i}{\sum_iw_i}\); \(H_t=100\dfrac{x_t}{x_0}\). Agregasi yang konsisten.\\[3pt]
+3&Markup, margin, diskon&Aljabar, fungsi afine, perkalian faktor&\(m=\dfrac{p-k}{p}\); \(p_{\text{baru}}=p(1-\delta)\). Menentukan harga dan dampak diskon.\\[3pt]
+4&Funnel digital&Komposisi perkalian, rasio, persamaan balik&\(Q=I\,\CTR\,\CVR\). Menghubungkan tayangan, klik, pesanan.\\[3pt]
+5&CPM, CPC, CPA&Analisis satuan, fungsi rasional&\(\CPA=\dfrac{\CPM}{1.000\,\CTR\,\CVR}\). Biaya per hasil.\\[3pt]
+6&ROAS dan ROI&Rasio, persamaan, pertidaksamaan&\(\ROI=m\,\ROAS-1\). Membedakan omzet dan laba.\\[3pt]
+7&Anggaran dan target&Pemodelan balik, alokasi berkendala&\(B=Q\,\CPA\). Menguji kebutuhan dana dan kapasitas.\\[3pt]
+8&Biaya tetap dan variabel&Fungsi afine&\(C(Q)=F+vQ\). Struktur biaya total.\\[3pt]
+9&Margin kontribusi&Selisih fungsi, analisis parameter&\(c=p-v\). Dana penutup iklan dan biaya tetap.\\[3pt]
+10&Titik impas, CPA maksimum&Akar persamaan, pertidaksamaan, domain&\(Q^*=\dfrac{F}{c-a}\), untuk \(c>a\). Syarat impas berhingga.\\[3pt]
+11&Skenario dan sensitivitas&Fungsi multivariabel, turunan parsial&Untuk \(Q,F\) tetap: \(\Delta L=Q(\Delta p-\Delta v-\Delta a)\).\\[3pt]
+12&CAC&Rasio agregat, unit analisis&\(\CAC=\dfrac{\text{biaya akuisisi}}{N_{\text{baru}}}\). Biaya pelanggan baru.\\[3pt]
+13&Retensi, churn, LTV&Peluang, model kelangsungan, deret geometri&\(\LTV=\dfrac{b}{1-r}\), termasuk periode awal dan kontribusi konstan.\\[3pt]
+14&Nilai waktu uang&Barisan, deret, diskonto&\(\PV_t=\dfrac{CF_t}{(1+d)^t}\). Membandingkan arus kas lintas waktu.\\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\clearpage
+\section{Tabel pengelompokan menurut cabang matematika}
+Satu modul dapat masuk lebih dari satu cabang. Pengelompokan ini menggabungkan tabel ringkas dan tabel lengkap dalam sumber.
+\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{41mm}>{\raggedright\arraybackslash}p{26mm}>{\raggedright\arraybackslash}p{83mm}@{}}
+\toprule\textbf{Cabang matematika}&\textbf{Modul}&\textbf{Konsep dan penerapan}\\\midrule\endhead
+Aritmetika dan perbandingan&1, 3, 5, 6, 12&Persentase, pembilang dan penyebut, proporsi, margin, rasio biaya, serta analisis satuan.\\
+Aljabar elementer&3, 4, 6, 7, 9, 10&Manipulasi rumus, eliminasi, persamaan balik, persamaan dan pertidaksamaan.\\
+Statistika deskriptif&2, 4, 11&Rata-rata berbobot, angka indeks, frekuensi rata-rata, dan interpretasi skenario.\\
+Fungsi linear dan afine&3, 8, 9, 10&Biaya \(C(Q)=F+vQ\), pendapatan \(pQ\), kontribusi, dan laba.\\
+Fungsi rasional&5, 6, 10, 12, 13&CPA sebagai fungsi CTR dan CVR; BEP sebagai fungsi margin; rasio CAC dan LTV.\\
+Pemodelan dan optimasi dasar&4, 7, 10, 11&Target balik, batas anggaran, kapasitas kanal, CPA maksimum, keputusan berbasis model.\\
+Kalkulus dan sensitivitas&9, 11&Laju perubahan kontribusi dan laba terhadap harga, biaya, CPA, serta volume.\\
+Peluang dan model kelangsungan&4, 13&Rasio konversi, retensi, churn, dan harapan umur pelanggan dengan asumsi yang eksplisit.\\
+Barisan dan deret&3, 13, 14&Perkalian faktor diskon, pembelian berulang, deret geometri, retensi terdiskonto.\\
+Matematika keuangan&6, 12, 13, 14&ROI, CAC, LTV, nilai kini, dan keputusan investasi sederhana.\\
+\bottomrule
+\end{longtable}
+\normalsize
+\bagian{Alur konseptual}
+\[
+\begin{gathered}
+\text{Rasio dan agregasi}\longrightarrow\text{volume funnel}\longrightarrow\text{biaya iklan}\\
+\longrightarrow\text{kontribusi dan laba}\longrightarrow\text{titik impas}\\
+\longrightarrow\text{pelanggan berulang}\longrightarrow\text{nilai kini}.
+\end{gathered}
+\]
+Matematika pada awal perkuliahan menghitung volume serta biaya. Bagian akhir menguji apakah volume itu menghasilkan kontribusi yang memadai, sekarang dan pada masa depan.
+
+\modul{1}{Persentase, rasio, proporsi, dan prorating}
+\bagian{Arti bisnis dan rumus inti}
+CTR adalah proporsi tayangan yang berujung klik; CVR adalah proporsi klik yang berujung pesanan. Prorating membagi biaya bersama menurut bobot yang disepakati. Jika \(a_0\) adalah bagian dari total \(b_0\), proporsinya \(a_0/b_0\), sedangkan bentuk persennya \((100a_0/b_0)\%\).
+\[
+\CTR=\frac{K}{I},\qquad \CVR=\frac{Q}{K},\qquad
+ g=\frac{x_1-x_0}{x_0},\qquad A_i=B\frac{w_i}{\sum_j w_j}.
+\]
+Rasio CTR dan CVR memiliki penyebut yang berbeda. Perkaliannya menyederhana melalui pembatalan faktor klik:
+\[
+\CTR\times\CVR=\frac{K}{I}\times\frac{Q}{K}=\frac{Q}{I}.
+\]
+Identitas ini berlaku ketika cakupan dan periode hitungan konsisten dan penyebut positif.
+
+\bagian{Contoh: rasio dan pertumbuhan}
+Dengan 240.000 tayangan, 3.600 klik, dan 144 pesanan:
+\[
+\begin{aligned}
+\CTR&=\frac{3.600}{240.000}=0{,}015=1{,}5\%,\\
+\CVR&=\frac{144}{3.600}=0{,}04=4\%,\\
+\frac{Q}{I}&=\frac{144}{240.000}=0{,}0006=0{,}06\%.
+\end{aligned}
+\]
+Jika pesanan naik dari 120 menjadi 144, pertumbuhannya adalah
+\[
+g=\frac{144-120}{120}=0{,}20=20\%.
+\]
+\bagian{Pertumbuhan relatif dan poin persentase}
+Kenaikan CTR dari \(1{,}2\%\) menjadi \(1{,}5\%\) memiliki dua ukuran berbeda:
+\[
+\begin{aligned}
+\text{selisih absolut}&=1{,}5\%-1{,}2\%=0{,}3\text{ poin persentase},\\
+\text{kenaikan relatif}&=\frac{0{,}015-0{,}012}{0{,}012}=25\%.
+\end{aligned}
+\]
+\catatan{Poin persentase mengukur selisih dua tingkat persentase; pertumbuhan relatif membagi selisih tersebut dengan tingkat awal. Keduanya tidak boleh dipertukarkan.}
+
+\bagian{Prorating dan konservasi jumlah}
+Untuk bobot nonnegatif dengan jumlah positif, definisikan
+\[
+\alpha_i=\frac{w_i}{\sum_jw_j},\qquad A_i=B\alpha_i.
+\]
+Penjumlahan seluruh bobot ternormalisasi dan alokasi memberi
+\[
+\sum_i\alpha_i=1,\qquad \sum_iA_i=\sum_i B\alpha_i=B.
+\]
+Biaya \rp{1.500.000} dibagi menurut belanja \rp{6.000.000}, \rp{3.600.000}, dan \rp{2.400.000}. Total bobot belanja adalah \rp{12.000.000}, sehingga
+\[
+(\alpha_1,\alpha_2,\alpha_3)=(0{,}5;\,0{,}3;\,0{,}2).
+\]
+Alokasinya berturut-turut \rp{750.000}, \rp{450.000}, dan \rp{300.000}; jumlahnya kembali tepat \rp{1.500.000}.
+
+\bagian{Latihan dan pembahasan}
+Diketahui 360.000 impresi dan 5.400 klik. Tentukan CTR. Jika terdapat 216 pesanan, tentukan CVR dan rasio pesanan per impresi.
+\[
+\begin{aligned}
+\CTR&=\frac{5.400}{360.000}=1{,}5\%,\\
+\CVR&=\frac{216}{5.400}=4\%,\\
+\frac{Q}{I}&=\frac{216}{360.000}=0{,}06\%.
+\end{aligned}
+\]
+\jembatan{Rasio ini menjadi komponen funnel dan penentu biaya per hasil. Menuju Modul 2, beberapa rasio tidak boleh dirata-rata tanpa mempertimbangkan ukuran penyebutnya.}
+
+\modul{2}{Rata-rata tertimbang dan angka indeks}
+\bagian{Arti bisnis dan rumus inti}
+Menggabungkan CTR harus dibobot dengan impresi, sedangkan CVR harus dibobot dengan klik. Angka indeks menunjukkan perubahan relatif dari periode dasar.
+\[
+\bar{x}_w=\frac{\sum_i w_ix_i}{\sum_iw_i},\qquad
+H_t=100\frac{x_t}{x_0},\qquad
+\CTR_{\text{gab}}=\frac{\sum_iK_i}{\sum_iI_i}.
+\]
+Simbol \(H_t\) dipakai untuk indeks agar tidak tertukar dengan impresi \(I\).
+
+\bagian{Mengapa bobot penyebut wajib}
+Untuk dua kampanye,
+\[
+\begin{aligned}
+\CTR_{\text{total}}
+&=\frac{K_1+K_2}{I_1+I_2}\\
+&=\frac{I_1\CTR_1+I_2\CTR_2}{I_1+I_2}.
+\end{aligned}
+\]
+Jadi bobot alami CTR adalah impresi, bukan jumlah kampanye. Dengan cara serupa,
+\[
+\CVR_{\text{total}}=\frac{\sum_i Q_i}{\sum_i K_i}
+=\frac{\sum_i K_i\CVR_i}{\sum_i K_i}.
+\]
+Penyebut harus sesuai definisi metrik; rata-rata sederhana atas rasio sering keliru.
+
+\bagian{Dua contoh pembobotan}
+Kampanye A memiliki 100.000 tayangan dengan CTR \(2\%\); kampanye B memiliki 300.000 tayangan dengan CTR \(1\%\). Kliknya masing-masing 2.000 dan 3.000. Maka
+\[
+\CTR_{\text{gab}}=\frac{2.000+3.000}{400.000}=1{,}25\%.
+\]
+Rata-rata sederhana \((2\%+1\%)/2=1{,}5\%\) bukan CTR gabungan karena ukuran kampanye berbeda.
+
+Sebagai pembanding, A memiliki 10.000 impresi dengan CTR \(4\%\), sedangkan B memiliki 90.000 impresi dengan CTR \(1\%\). Kliknya 400 dan 900, sehingga
+\[
+\CTR_{\text{total}}=\frac{400+900}{100.000}=1{,}3\%,
+\]
+bukan rata-rata sederhana \(2{,}5\%\).
+
+\bagian{Indeks sebagai pemetaan ke basis 100}
+Jika pesanan Januari 400 dan April 520,
+\[
+H_{\text{April}}=100\frac{520}{400}=130.
+\]
+Indeks 130 berarti pesanan \(30\%\) di atas Januari. Jika belanja iklan naik dari \rp{8.000.000} ke \rp{12.000.000}, indeks biaya adalah
+\[
+H_{\text{biaya}}=100\frac{12.000.000}{8.000.000}=150.
+\]
+Pesanan tumbuh lebih lambat daripada biaya. Indeks tidak bersatuan dan memungkinkan perbandingan arah pertumbuhan metrik yang satuannya berbeda, tetapi tidak membuktikan hubungan sebab akibat.
+
+\bagian{Latihan dan pembahasan}
+Tiga kanal memiliki impresi 10.000, 20.000, dan 70.000 serta CTR berturut-turut \(3\%\), \(2\%\), dan \(1\%\). Klik total adalah
+\[
+K=300+400+700=1.400.
+\]
+Karena impresi total 100.000,
+\[
+\CTR_{\text{total}}=\frac{1.400}{100.000}=1{,}4\%.
+\]
+\jembatan{Pembobotan menyiapkan evaluasi lintas kanal dan alokasi anggaran. Pada Modul 3--5, prinsip yang sama penting untuk margin rata-rata, CPC rata-rata, dan CPA gabungan.}
+
+\modul{3}{Harga jual, markup, margin, dan diskon}
+\bagian{Arti bisnis dan rumus inti}
+Markup dan margin mempunyai pembilang yang sama tetapi penyebut berbeda. Diskon atau markdown mengubah pendapatan per transaksi tanpa otomatis mengubah modal barang.
+
+Misalkan \(p\) harga jual, \(k\) modal barang, \(E\) biaya operasional teralokasi, dan \(P\) target laba per pesanan. Identitas penyusunan harga adalah
+\[
+p=k+E+P.
+\]
+Markup nominal \(M\), markup relatif terhadap modal \(u\), serta margin relatif terhadap harga \(m\) didefinisikan sebagai
+\[
+M=p-k,\qquad u=\frac{p-k}{k},\qquad m=\frac{p-k}{p}.
+\]
+Karena \(p=k(1+u)\), diperoleh hubungan
+\[
+m=\frac{ku}{k(1+u)}=\frac{u}{1+u},\qquad
+u=\frac{m}{1-m}.
+\]
+Untuk modal positif dan harga positif, kedua rasio sah; invers margin memerlukan \(m\ne1\).
+
+\bagian{Contoh Kopi Loka}
+Harga \rp{65.000}, modal \rp{42.000}, biaya operasional teralokasi \rp{9.000}, dan target laba \rp{14.000} memenuhi
+\[
+65.000=42.000+9.000+14.000.
+\]
+Dengan demikian,
+\[
+\begin{aligned}
+M&=65.000-42.000=23.000,\\
+u&=\frac{23.000}{42.000}\approx54{,}76\%,\\
+m&=\frac{23.000}{65.000}\approx35{,}38\%.
+\end{aligned}
+\]
+Margin kotor rupiah adalah \rp{23.000}; rasio margin kotor \(35{,}38\%\) dihitung dari harga jual.
+
+\bagian{Diskon sebagai komposisi perkalian}
+Jika diskon berturut-turut adalah \(\delta_1,\ldots,\delta_n\), harga setelah diskon adalah
+\[
+p_n=p_0\prod_{i=1}^{n}(1-\delta_i).
+\]
+Untuk dua diskon,
+\[
+p_2=p_0(1-\delta_1)(1-\delta_2),\qquad
+\delta_{\text{efektif}}=1-(1-\delta_1)(1-\delta_2).
+\]
+Diskon \(20\%\) disusul \(10\%\) menghasilkan
+\[
+(1-0{,}20)(1-0{,}10)=0{,}8\times0{,}9=0{,}72.
+\]
+Potongan efektifnya \(28\%\), bukan \(30\%\).
+
+\bagian{Diskon dan laba nominal}
+Harga \rp{65.000} setelah diskon \(20\%\) menjadi
+\[
+p_{\text{baru}}=65.000(1-0{,}20)=52.000.
+\]
+Dengan modal tetap \rp{42.000}, margin kotor rupiah menjadi \rp{10.000}. Penurunannya \rp{13.000}, atau
+\[
+\frac{23.000-10.000}{23.000}\approx56{,}52\%.
+\]
+Jika ada subsidi ongkir \rp{8.000}, sisa sebelum biaya lain hanya \rp{2.000}.
+
+\bagian{Syarat diskon tanpa rugi kotor}
+Jika hanya modal barang yang diperhitungkan,
+\[
+\begin{aligned}
+p(1-\delta)&\ge k\\
+\delta&\le 1-\frac{k}{p}.
+\end{aligned}
+\]
+Untuk harga \rp{65.000} dan modal \rp{42.000}, batas diskon kotor adalah sekitar \(35{,}38\%\). Batas riil lebih kecil jika biaya lain turut diperhitungkan.
+\catatan{Biaya operasional, subsidi ongkir, biaya platform, dan iklan belum tentu tercakup dalam margin kotor \(p-k\). Margin kotor berbeda dari margin kontribusi yang mengurangi semua biaya variabel.}
+
+\bagian{Latihan dan pembahasan}
+Modal \rp{80.000}; target margin terhadap harga jual \(20\%\). Dari \(m=(p-k)/p\),
+\[
+p=\frac{k}{1-m}=\frac{80.000}{1-0{,}20}=100.000.
+\]
+Harga yang benar \rp{100.000}, bukan \rp{96.000}. Harga \rp{96.000} menggunakan markup \(20\%\) atas modal, bukan margin \(20\%\) atas harga.
+\jembatan{Pada Modul 8--10, margin kotor \(p-k\) digantikan oleh kontribusi \(p-v\), dengan \(v\) mencakup seluruh biaya variabel.}
+
+\modul{4}{Funnel: impresi, reach, klik, dan konversi}
+\bagian{Unit observasi dan arti bisnis}
+Funnel memodelkan urutan tayangan, klik, lalu pesanan. Impresi adalah peristiwa tayangan, reach adalah akun unik yang dijangkau, klik adalah peristiwa klik, dan pesanan adalah hasil transaksi. Setiap tingkat konversi adalah rasio terhadap tahap sebelumnya. Semua hitungan itu tidak boleh disamakan dengan jumlah orang unik.
+\[
+f=\frac{I}{J},\qquad K=I\,\CTR,\qquad
+Q=K\,\CVR=I\,\CTR\,\CVR.
+\]
+Frekuensi \(f\) menyatakan rata-rata tayangan per akun. Misalnya, 480.000 impresi menjangkau 120.000 akun:
+\[
+f=\frac{480.000}{120.000}=4.
+\]
+
+\bagian{Penurunan dengan pembatalan faktor}
+\[
+\frac{Q}{I}=\frac{K}{I}\frac{Q}{K}=\CTR\,\CVR
+\quad\Longrightarrow\quad Q=I\,\CTR\,\CVR.
+\]
+Ini identitas aljabar jika definisi, periode, dan atribusi konsisten. Untuk CTR dan CVR positif, persamaan dapat dibalik:
+\[
+K_{\text{target}}=\frac{Q_{\text{target}}}{\CVR},\qquad
+I_{\text{target}}=\frac{Q_{\text{target}}}{\CTR\,\CVR}.
+\]
+Target 1.000 pesanan, CTR \(2\%\), dan CVR \(4\%\) memerlukan
+\[
+\begin{aligned}
+K_{\text{target}}&=\frac{1.000}{0{,}04}=25.000,\\
+I_{\text{target}}&=\frac{25.000}{0{,}02}
+=\frac{1.000}{0{,}02\times0{,}04}=1.250.000.
+\end{aligned}
+\]
+
+\bagian{Mendeteksi kebocoran funnel}
+Dengan impresi tetap 100.000, CTR awal \(3\%\), dan CVR \(5\%\), pesanan awal adalah
+\[
+Q_0=100.000\times0{,}03\times0{,}05=150.
+\]
+Jika CTR turun menjadi \(2\%\) dengan CVR tetap, pesanan menjadi 100. Jika CTR tetap \(3\%\), tetapi CVR turun menjadi \(3\%\), pesanan menjadi 90. Perbaikan perlu diarahkan ke tahap yang berubah.
+
+\bagian{Pengayaan: sensitivitas multiplikatif}
+Jika impresi tetap, kenaikan relatif CTR \(10\%\) dan CVR \(10\%\) menghasilkan
+\[
+\frac{Q_{\text{baru}}}{Q_{\text{lama}}}
+=1{,}1\times1{,}1=1{,}21.
+\]
+Pesanan naik \(21\%\), bukan \(20\%\), karena ada hasil kali kedua perubahan.
+\catatan{Klik adalah peristiwa, bukan selalu pengguna unik. Model ini tepat ketika CVR didefinisikan sebagai pesanan dibagi klik dalam cakupan atribusi yang konsisten. Jika satu klik dapat menghasilkan beberapa pesanan, rasio itu tidak otomatis merupakan probabilitas Bernoulli.}
+
+\bagian{Latihan dan pembahasan}
+Diketahui 600.000 impresi, reach 150.000, CTR \(2\%\), dan CVR \(5\%\):
+\[
+\begin{aligned}
+f&=\frac{600.000}{150.000}=4,\\
+K&=600.000\times0{,}02=12.000,\\
+Q&=12.000\times0{,}05=600.
+\end{aligned}
+\]
+\jembatan{Funnel menyediakan dasar target biaya iklan dan anggaran. Jumlah hasil yang diproyeksikan menentukan biaya per hasil pada Modul 5 serta kebutuhan anggaran pada Modul 7.}
+
+\modul{5}{CPM, CPC, CPA, dan efisiensi iklan}
+\bagian{Arti bisnis dan dimensi metrik}
+CPM mengukur rupiah per 1.000 tayangan, CPC rupiah per klik, dan CPA rupiah per hasil yang ditetapkan. Dalam panduan ini, hasil acuan CPA adalah pesanan. Semua metrik berasal dari biaya iklan \(B\) dibagi volume yang berbeda:
+\[
+\CPM=\frac{1.000B}{I},\qquad \CPC=\frac{B}{K},\qquad \CPA=\frac{B}{Q}.
+\]
+Istilah CPA harus selalu dijelaskan hasil acuannya: pesanan, prospek, atau akuisisi lain. CPA tidak otomatis identik dengan CAC.
+
+\bagian{Penurunan CPC dari CPM}
+Dari definisi CPM dan CTR,
+\[
+\frac{B}{I}=\frac{\CPM}{1.000},\qquad
+\frac{I}{K}=\frac{1}{\CTR}.
+\]
+Substitusi ke CPC memberi
+\[
+\CPC=\frac{B}{K}=\frac{B}{I}\frac{I}{K}
+=\frac{\CPM}{1.000\,\CTR}.
+\]
+Faktor 1.000 diperlukan karena unit CPM adalah biaya untuk seribu tayangan.
+
+\bagian{Penurunan CPA dari CPC}
+\[
+\begin{aligned}
+\CPA&=\frac{B}{Q}=\frac{B}{K}\frac{K}{Q}
+=\frac{\CPC}{\CVR}\\
+&=\frac{\CPM}{1.000\,\CTR\,\CVR}.
+\end{aligned}
+\]
+Seluruh rasio konversi dalam perkalian di atas digunakan sebagai desimal, bukan angka persen tanpa pembagian seratus.
+
+\bagian{Contoh numerik}
+Biaya \rp{24.000.000}, impresi 1.200.000, klik 24.000, dan pesanan 960 menghasilkan
+\[
+\begin{aligned}
+\CPM&=\frac{1.000\times24.000.000}{1.200.000}=20.000,\\
+\CPC&=\frac{24.000.000}{24.000}=1.000,\\
+\CPA&=\frac{24.000.000}{960}=25.000.
+\end{aligned}
+\]
+Jadi CPM \rp{20.000}, CPC \rp{1.000}, dan CPA \rp{25.000}. Bila CVR naik dua kali dengan CPC tetap, CPA menjadi setengah.
+
+\bagian{Pengayaan: perubahan relatif dan perbandingan kanal}
+Pada CPM tetap, CPA berbanding terbalik dengan CTR dan CVR. Jika CTR naik \(25\%\) dan CVR tetap,
+\[
+\CPA_{\text{baru}}=\frac{\CPA_{\text{lama}}}{1{,}25}
+=0{,}8\,\CPA_{\text{lama}}.
+\]
+CPA turun \(20\%\). Kenaikan penyebut \(25\%\) tidak berarti penurunan hasil \(25\%\).
+
+Kanal dengan CPM paling murah belum tentu mempunyai CPA paling rendah karena CTR dan CVR berbeda. Pembanding perlu dipilih menurut tujuan kampanye dan kualitas hasil.
+
+\bagian{Latihan dan pembahasan}
+CPM \rp{30.000}, CTR \(3\%\), dan CVR \(4\%\):
+\[
+\CPC=\frac{30.000}{1.000\times0{,}03}=1.000,\qquad
+\CPA=\frac{1.000}{0{,}04}=25.000.
+\]
+\jembatan{Biaya per pesanan baru bermakna secara ekonomi jika dibandingkan dengan margin produk pada Modul 6. CPA juga menjadi input langsung untuk anggaran pada Modul 7 dan analisis impas pada Modul 10.}
+
+\modul{6}{ROAS, ROI, dan ROAS impas}
+\bagian{Rasio omzet bukan laba}
+ROAS mengukur omzet relatif terhadap belanja iklan. ROI kampanye sederhana mengukur keuntungan relatif terhadap biaya iklan, berdasarkan cakupan laba yang digunakan. Misalkan \(m\) adalah rasio margin produk terhadap omzet:
+\[
+\ROAS=\frac{R}{B},\qquad L=mR-B,\qquad \ROI=\frac{L}{B}.
+\]
+ROAS tidak langsung memperhitungkan modal barang. Laba \(L\) dalam bagian ini adalah laba menurut model sederhana; biaya tetap dan biaya lain yang belum termasuk di dalam \(m\) belum diperhitungkan.
+
+\bagian{Penurunan identitas ROI dan ambang kelayakan}
+Untuk \(B>0\),
+\[
+\begin{aligned}
+\ROI&=\frac{mR-B}{B}\\
+&=m\frac{R}{B}-1=m\,\ROAS-1.
+\end{aligned}
+\]
+Jika \(m>0\), syarat ROI tidak negatif adalah
+\[
+\ROI\ge0\quad\Longleftrightarrow\quad
+\ROAS\ge\frac{1}{m}.
+\]
+Dengan demikian, \(\ROAS_{\text{impas}}=1/m\) untuk model ini.
+
+\bagian{Contoh margin 40 persen dan 20 persen}
+Diketahui omzet \rp{24.000.000} dan iklan \rp{8.000.000}. Untuk margin \(40\%\),
+\[
+\begin{aligned}
+\ROAS&=\frac{24.000.000}{8.000.000}=3,\\
+L&=0{,}4\times24.000.000-8.000.000=1.600.000,\\
+\ROI&=\frac{1.600.000}{8.000.000}=20\%,\\
+\ROAS_{\text{impas}}&=\frac{1}{0{,}4}=2{,}5.
+\end{aligned}
+\]
+Jika margin turun menjadi \(20\%\), omzet dan belanja iklan tetap, sehingga
+\[
+L=0{,}2\times24.000.000-8.000.000=-3.200.000,
+\qquad \ROI=-40\%.
+\]
+ROAS tetap 3, tetapi keputusan mengenai keuntungan berubah.
+
+\bagian{Produk berbeda dan interpretasi}
+Produk dengan margin \(25\%\) dan ROAS \(3{,}5\) masih berada di bawah ambang \(1/0{,}25=4\). Produk dengan margin \(40\%\) dan ROAS 3 sudah berada di atas ambang \(2{,}5\). Membandingkan ROAS tanpa memperhatikan margin dapat menyesatkan.
+\catatan{Ambang \(1/m\) hanya berlaku untuk model laba yang digunakan. Biaya tetap dan komponen biaya yang belum dimasukkan dapat mengubah titik impas usaha. ROI yang memakai total investasi sebagai penyebut merupakan metrik berbeda dan perlu dinyatakan tersendiri.}
+
+\bagian{Latihan dan pembahasan}
+ROAS 4 dan margin \(30\%\) memberikan
+\[
+\ROI=0{,}3\times4-1=0{,}2=20\%.
+\]
+Jika margin turun menjadi \(20\%\),
+\[
+\ROI=0{,}2\times4-1=-0{,}2=-20\%.
+\]
+\jembatan{Modul ini mengarahkan keputusan anggaran dan membedakan omzet, laba kotor, serta laba bersih. Pada Modul 7--10, model margin sederhana diperluas dengan biaya variabel lengkap dan biaya tetap.}
+
+\modul{7}{Anggaran kampanye dan target kinerja}
+\bagian{Perencanaan dari dana atau dari target}
+Perencanaan dapat dimulai dari dana tersedia atau target penjualan. Dalam pendekatan \emph{top-down}, anggaran total ditentukan terlebih dahulu lalu dialokasikan. Dalam pendekatan \emph{bottom-up}, target pesanan ditentukan dahulu, lalu kebutuhan belanja dihitung:
+\[
+B=Q\,\CPA.
+\]
+Kedua metode harus diuji terhadap keterbatasan sumber daya. Setiap target harus konsisten dengan asumsi funnel dan biaya.
+
+\bagian{Rantai perhitungan balik}
+Dari omzet target \(R^*\), untuk harga serta rasio konversi positif,
+\[
+\begin{aligned}
+Q^*&=\frac{R^*}{p},& K^*&=\frac{Q^*}{\CVR},\\
+I^*&=\frac{K^*}{\CTR},& B^*&=Q^*\CPA.
+\end{aligned}
+\]
+Arah perhitungan ini membalik hubungan pendapatan dan funnel: omzet menentukan pesanan, pesanan menentukan klik, klik menentukan impresi, dan CPA menentukan anggaran.
+
+\bagian{Contoh anggaran}
+Target 2.000 pesanan, harga \rp{65.000}, CVR \(5\%\), CTR \(2\%\), dan CPA \rp{26.000} memberi
+\[
+\begin{aligned}
+R^*&=2.000\times65.000=130.000.000,\\
+K^*&=\frac{2.000}{0{,}05}=40.000,\\
+I^*&=\frac{40.000}{0{,}02}=2.000.000,\\
+B^*&=2.000\times26.000=52.000.000.
+\end{aligned}
+\]
+Jadi omzet target \rp{130.000.000} memerlukan 40.000 klik, dua juta impresi, dan anggaran iklan \rp{52.000.000} menurut asumsi model.
+
+\bagian{Alokasi berbobot dan kendala}
+Anggaran dapat dialokasikan secara proporsional:
+\[
+B_i=B\frac{w_i}{\sum_jw_j}.
+\]
+Jika kanal memiliki kapasitas terbatas, alokasi proporsional belum tentu optimal. Sebagai model alokasi berkendala,
+\[
+\sum_iB_i\le B_{\text{total}},\qquad
+0\le B_i\le\overline{B}_i,
+\]
+dengan \(\overline{B}_i\) batas belanja kanal. Memilih alokasi optimal memerlukan hubungan belanja dan hasil tiap kanal serta tujuan yang jelas; rumus proporsional saja belum menyelesaikan optimasi itu.
+
+\bagian{CPA gabungan}
+Karena \(B_i=Q_i\CPA_i\),
+\[
+\CPA_{\text{total}}=\frac{\sum_iB_i}{\sum_iQ_i}
+=\frac{\sum_iQ_i\CPA_i}{\sum_iQ_i}.
+\]
+Jadi CPA gabungan dibobot pesanan, bukan rata-rata sederhana CPA antarkanal.
+\catatan{CTR, CVR, dan CPA dapat berubah ketika skala kampanye berubah. Rumus adalah model perencanaan, bukan jaminan hasil. Anggaran perlu dibandingkan dengan struktur biaya tiap pesanan sebelum dinilai layak.}
+
+\bagian{Latihan dan pembahasan}
+Target 1.500 pesanan dengan CPA \rp{20.000} memerlukan
+\[
+B=1.500\times20.000=30.000.000.
+\]
+Jika anggaran hanya \rp{24.000.000} dan CPA tetap,
+\[
+Q=\frac{24.000.000}{20.000}=1.200.
+\]
+Target yang didukung model adalah 1.200 pesanan.
+\jembatan{Pada Modul 8, anggaran iklan dinilai bersama struktur biaya operasional per pesanan.}
+
+\modul{8}{Struktur biaya per pesanan}
+\bagian{Biaya tetap, variabel, dan fungsi afine}
+Biaya tetap tidak berubah langsung terhadap \(Q\) dalam rentang kegiatan yang relevan. Biaya variabel berubah bersama jumlah pesanan. Untuk \(F\) tetap dan biaya variabel per pesanan \(v\),
+\[
+C(Q)=F+vQ,\qquad R(Q)=pQ.
+\]
+Selisih pendapatan dan biaya sebelum iklan adalah
+\[
+\begin{aligned}
+L_0(Q)&=R(Q)-C(Q)\\
+&=pQ-(F+vQ)=(p-v)Q-F.
+\end{aligned}
+\]
+Biaya total merupakan fungsi afine terhadap pesanan; kemiringannya \(v\) dan intersepnya \(F\).
+
+\bagian{Mengurai biaya variabel}
+Komponen biaya variabel dapat meliputi modal produk, kemasan, fee platform, biaya pembayaran, subsidi ongkir, dan cadangan retur. Semua komponen dihitung per pesanan agar satuannya tidak tercampur. Dalam model ini, iklan ditulis terpisah melalui \(B\) atau \(aQ\); jangan menghitung biaya iklan dua kali.
+
+Jika harga \rp{65.000} dan total biaya variabel \rp{55.000}, sisa per pesanan sebelum iklan dan biaya tetap adalah
+\[
+p-v=65.000-55.000=10.000.
+\]
+Untuk 2.000 pesanan, total sisa tersebut adalah \rp{20.000.000}, sebelum pengurangan iklan dan biaya tetap.
+
+\bagian{Biaya berbasis persentase harga}
+Jika fee platform adalah \(\tau p\) dan biaya variabel lain \(v_0\), maka
+\[
+v(p)=v_0+\tau p.
+\]
+Kontribusinya menjadi
+\[
+c(p)=p-v(p)=(1-\tau)p-v_0.
+\]
+Biaya variabel dengan demikian dapat bergantung pada harga. Saat harga berubah, \(v\) tidak boleh otomatis dianggap konstan.
+
+\bagian{Biaya tetap per pesanan dan biaya marginal}
+Biaya tetap per pesanan adalah \(F/Q\), sehingga biaya rata-rata untuk \(Q>0\) adalah
+\[
+\overline{C}(Q)=\frac{C(Q)}{Q}=\frac{F}{Q}+v.
+\]
+Angka \(F/Q\) berubah saat jumlah pesanan berubah meskipun \(F\) tetap. Sebaliknya, dalam model afine biaya marginalnya
+\[
+\frac{\mathrm{d}C}{\mathrm{d}Q}=v.
+\]
+Pembagian biaya tetap tidak boleh digunakan seolah-olah merupakan biaya tambahan yang selalu timbul pada setiap pesanan baru.
+
+\bagian{Latihan dan pembahasan}
+Diketahui \(F=\rp{12.000.000}\), \(v=\rp{45.000}\), \(p=\rp{60.000}\), dan \(Q=1.000\):
+\[
+\begin{aligned}
+C(1.000)&=12.000.000+45.000\times1.000=57.000.000,\\
+R(1.000)&=60.000\times1.000=60.000.000,\\
+L_0(1.000)&=60.000.000-57.000.000=3.000.000.
+\end{aligned}
+\]
+Sisa sebelum iklan adalah \rp{3.000.000}.
+\jembatan{Selisih \(p-v\) disebut margin kontribusi pada Modul 9; besaran ini belum merupakan laba bersih.}
+
+\modul{9}{Margin kontribusi dan dampak diskon}
+\bagian{Definisi dan perbedaan dari margin kotor}
+Kontribusi per pesanan, rasio kontribusi, dan total kontribusi adalah
+\[
+c=p-v,\qquad \text{rasio kontribusi}=\frac{c}{p},\qquad
+\text{total kontribusi}=cQ.
+\]
+Kontribusi merupakan dana yang tersedia untuk menutup iklan dan biaya tetap, bukan laba bersih. Margin kotor produk \(p-k\) hanya mengurangkan modal barang, sedangkan kontribusi \(p-v\) mengurangkan seluruh biaya variabel yang ditetapkan.
+
+Dalam contoh Kopi Loka,
+\[
+\begin{aligned}
+\text{margin kotor}&=65.000-42.000=23.000,\\
+c&=65.000-55.000=10.000,\\
+\frac{c}{p}&=\frac{10.000}{65.000}\approx15{,}38\%.
+\end{aligned}
+\]
+Karena cakupan biaya berbeda, margin kotor \rp{23.000} tidak boleh dipakai sebagai pengganti kontribusi \rp{10.000}.
+
+\bagian{Diskon ketika biaya variabel tetap}
+Jika diskon \(\delta\) diterapkan tanpa perubahan biaya variabel,
+\[
+\begin{aligned}
+c_{\text{baru}}&=p(1-\delta)-v\\
+&=(p-v)-p\delta=c-p\delta.
+\end{aligned}
+\]
+Jadi diskon menurunkan kontribusi rupiah secara langsung sebesar \(p\delta\). Dengan harga \rp{65.000}, biaya variabel \rp{55.000}, dan diskon \(10\%\),
+\[
+c_{\text{baru}}=65.000(1-0{,}10)-55.000=3.500.
+\]
+Batas kontribusi tidak negatif diperoleh dari
+\[
+c-p\delta\ge0\quad\Longleftrightarrow\quad \delta\le\frac{c}{p}.
+\]
+Batas tepatnya \(10.000/65.000\), sekitar \(15{,}38\%\). Diskon di atas batas tepat ini membuat kontribusi negatif bila \(v\) tidak berubah.
+
+\bagian{Diskon ketika fee proporsional}
+Jika \(v(p)=v_0+\tau p\),
+\[
+c(p)=(1-\tau)p-v_0,\qquad \Delta c=(1-\tau)\Delta p.
+\]
+Di sini \(\Delta p\) adalah perubahan bertanda: penurunan harga berarti \(\Delta p<0\). Penurunan kontribusi tidak selalu sebesar penurunan harga karena fee juga ikut turun.
+
+\bagian{Iklan berbasis pesanan}
+Dengan CPA \(a\), kontribusi setelah iklan per pesanan adalah \(c-a\), dan laba keseluruhan
+\[
+L(Q)=(p-v-a)Q-F=(c-a)Q-F.
+\]
+Jika \(a>c\), memperbesar pesanan justru memperbesar rugi dalam model linear dengan parameter tetap ini.
+
+\bagian{Latihan dan pembahasan}
+Harga \rp{80.000}, biaya variabel \rp{60.000}, dan diskon \(15\%\), dengan biaya variabel tetap:
+\[
+\begin{aligned}
+p_{\text{baru}}&=80.000(1-0{,}15)=68.000,\\
+c_{\text{lama}}&=80.000-60.000=20.000,\\
+c_{\text{baru}}&=68.000-60.000=8.000.
+\end{aligned}
+\]
+Kontribusi turun sebesar
+\[
+\frac{20.000-8.000}{20.000}=60\%.
+\]
+\jembatan{Kontribusi merupakan koefisien kunci persamaan titik impas. Pada Modul 10, \(c-\CPA\) menjadi penyebut utama rumus BEP.}
+
+\modul{10}{Titik impas dan CPA maksimum}
+\bagian{Persamaan laba dan titik impas}
+Titik impas berarti laba nol. Dalam model biaya tetap ditambah biaya per pesanan,
+\[
+L(Q)=(p-v-a)Q-F=(c-a)Q-F.
+\]
+Menyelesaikan \(L(Q)=0\) memberi
+\[
+(c-a)Q=F\quad\Longrightarrow\quad Q^*=\frac{F}{c-a}.
+\]
+Untuk \(F>0\), diperlukan \(c>a\) agar titik impas positif dan berhingga.
+
+\bagian{Syarat eksistensi dan interpretasi}
+\begin{itemize}
+\item Jika \(c-a>0\), setiap tambahan pesanan menyumbang dana untuk menutup biaya tetap; titik impas positif tersedia.
+\item Jika \(c-a=0\), maka \(L(Q)=-F\), selalu negatif untuk \(F>0\). Tidak ada jumlah pesanan berhingga yang menutup biaya tetap.
+\item Jika \(c-a<0\), kenaikan \(Q\) memperburuk laba. Akar aljabar negatif tidak bermakna sebagai volume pesanan nonnegatif.
+\end{itemize}
+Jika kontribusi \rp{10.000} dan biaya tetap \rp{15.000.000}, tanpa biaya iklan per pesanan,
+\[
+Q^*=\frac{15.000.000}{10.000}=1.500\text{ pesanan}.
+\]
+
+\bagian{CPA maksimum pada volume target}
+Untuk \(Q>0\), syarat laba tidak negatif adalah
+\[
+\begin{aligned}
+L\ge0&\quad\Longleftrightarrow\quad(c-a)Q\ge F\\
+&\quad\Longleftrightarrow\quad a\le c-\frac{F}{Q}.
+\end{aligned}
+\]
+Maka
+\[
+a_{\text{maks}}=c-\frac{F}{Q}.
+\]
+Pada \(Q=2.000\), \(c=\rp{10.000}\), dan \(F=\rp{15.000.000}\),
+\[
+a_{\text{maks}}=10.000-\frac{15.000.000}{2.000}
+=10.000-7.500=2.500.
+\]
+Batas CPA adalah \rp{2.500}; CPA \rp{10.000} belum cukup untuk impas karena masih ada biaya tetap. Jika batas CPA yang dihitung negatif, bahkan iklan gratis belum memungkinkan impas pada volume target itu.
+
+\bagian{Pengayaan: target laba dan pembulatan}
+Untuk target laba \(L^*\),
+\[
+(c-a)Q-F=L^*\quad\Longrightarrow\quad
+Q=\frac{F+L^*}{c-a},\qquad c>a.
+\]
+Jika pesanan harus bilangan bulat dan tujuan laba minimal \(L^*\), gunakan
+\[
+Q_{\text{minimum}}=\left\lceil\frac{F+L^*}{c-a}\right\rceil.
+\]
+Pembulatan ke bawah dapat membuat laba belum mencapai target.
+
+\bagian{Latihan dan pembahasan}
+Kontribusi \rp{25.000}, CPA \rp{10.000}, dan biaya tetap \rp{30.000.000} memberikan
+\[
+Q^*=\frac{30.000.000}{25.000-10.000}
+=\frac{30.000.000}{15.000}=2.000\text{ pesanan}.
+\]
+\jembatan{Titik impas membuka analisis skenario ketika CPA, volume, harga, atau biaya berubah. BEP peka terhadap perubahan kecil penyebut \(c-a\), terutama ketika penyebut mendekati nol dari atas; hal ini dipelajari pada Modul 11.}
+
+\modul{11}{Analisis skenario dan sensitivitas}
+\bagian{Fungsi banyak parameter}
+Analisis skenario mengubah beberapa asumsi sekaligus, misalnya kombinasi optimistis, dasar, dan pesimistis. Analisis sensitivitas mengisolasi pengaruh satu parameter. Model laba yang digunakan adalah
+\[
+L(Q,p,v,a,F)=(p-v-a)Q-F.
+\]
+Parameter harus dinyatakan jelas agar perubahan hasil dapat ditelusuri ke asumsi yang berubah.
+
+\bagian{Turunan parsial dan interpretasinya}
+Jika \(v\) dianggap tidak bergantung pada \(p\),
+\[
+\begin{aligned}
+\frac{\partial L}{\partial p}&=Q,&
+\frac{\partial L}{\partial v}&=-Q,&
+\frac{\partial L}{\partial a}&=-Q,\\
+\frac{\partial L}{\partial F}&=-1,&
+\frac{\partial L}{\partial Q}&=p-v-a=c-a.
+\end{aligned}
+\]
+Pada \(Q=2.000\), kenaikan CPA \rp{1.000} menurunkan laba sebesar
+\[
+\Delta L=-Q\Delta a=-2.000\times1.000=-2.000.000,
+\]
+jika parameter lain tetap. Kenaikan volume hanya meningkatkan laba jika \(c-a>0\).
+
+Untuk perubahan beberapa parameter yang kecil, diferensial total memberi
+\[
+\Delta L\approx
+Q(\Delta p-\Delta v-\Delta a)+(p-v-a)\Delta Q-\Delta F.
+\]
+Jika \(Q\) dan \(F\) tetap, hubungan
+\[
+\Delta L=Q(\Delta p-\Delta v-\Delta a)
+\]
+bersifat tepat dalam model ini. Jika \(Q\) juga berubah, perubahan tepat memuat tambahan hasil kali
+\((\Delta p-\Delta v-\Delta a)\Delta Q\).
+
+\bagian{Jika biaya variabel bergantung pada harga}
+Dengan \(v(p)=v_0+\tau p\),
+\[
+L=\bigl((1-\tau)p-v_0-a\bigr)Q-F,
+\qquad \frac{\partial L}{\partial p}=(1-\tau)Q.
+\]
+Untuk \(0<\tau<1\), dampak perubahan harga pada laba lebih kecil daripada \(Q\Delta p\). Asumsi biaya proporsional tidak boleh diabaikan ketika menghitung sensitivitas.
+
+\bagian{Contoh skenario buruk dan analisis ambang}
+Jika \(Q=1.800\), kontribusi \rp{10.000}, CPA \rp{31.200}, dan biaya tetap \rp{15.000.000},
+\[
+\begin{aligned}
+L&=(10.000-31.200)\times1.800-15.000.000\\
+&=-38.160.000-15.000.000=-53.160.000.
+\end{aligned}
+\]
+Kerugiannya \rp{53.160.000}.
+
+Pada skenario lain, kontribusi \rp{19.850}, volume 2.000, dan biaya tetap \rp{15.000.000} memberi
+\[
+a_{\text{maks}}=19.850-\frac{15.000.000}{2.000}=12.350.
+\]
+Skenario yang tampak lebih baik masih perlu dibandingkan dengan CPA nyata; batasnya adalah \rp{12.350}.
+
+\bagian{Latihan dan pembahasan}
+Diketahui harga \rp{70.000}, biaya variabel \rp{50.000}, CPA \rp{12.000}, volume 2.000, dan biaya tetap \rp{10.000.000}:
+\[
+\begin{aligned}
+L&=(70.000-50.000-12.000)\times2.000-10.000.000\\
+&=6.000.000.
+\end{aligned}
+\]
+Jika CPA naik menjadi \rp{15.000}, penurunan laba adalah
+\[
+\Delta L=-2.000(15.000-12.000)=-6.000.000.
+\]
+Laba menjadi nol.
+\jembatan{Ketelitian parameter menentukan kualitas skenario. Modul 12 memperjelas pembilang dan penyebut CPA serta CAC agar biaya memperoleh pelanggan baru tidak salah diukur.}
+
+\modul{12}{Customer acquisition cost (CAC)}
+\bagian{Unit pengamatan dan arti bisnis}
+Penyebut CAC adalah pelanggan baru, bukan pesanan. Satu pelanggan dapat bertransaksi berkali-kali. Jika pelanggan lama memesan ulang, \(Q\) dan \(N_{\text{baru}}\) berbeda.
+\[
+\CPA_{\text{pesanan}}=\frac{B}{Q},\qquad
+\CAC=\frac{\text{biaya akuisisi}}{N_{\text{baru}}}.
+\]
+Keduanya menjawab pertanyaan berbeda: biaya untuk satu pesanan dan biaya memperoleh satu pelanggan baru.
+
+\bagian{Dua cakupan biaya}
+Definisi yang lebih spesifik adalah
+\[
+\begin{aligned}
+\CAC_{\text{paid}}&=\frac{B_{\text{iklan}}}{N_{\text{baru dari iklan}}},\\
+\CAC_{\text{blended}}&=
+\frac{B_{\text{iklan}}+M}{N_{\text{baru semua kanal}}},
+\end{aligned}
+\]
+dengan \(M\) biaya pemasaran lain yang dimasukkan dalam cakupan akuisisi. Cakupan biaya, periode, dan definisi pelanggan baru harus dicatat agar perbandingan antarkampanye adil.
+
+\bagian{Contoh Kopi Loka}
+Iklan \rp{52.000.000}, pemasaran lain \rp{8.000.000}, pesanan 2.000, dan pelanggan baru 1.200. Mengikuti contoh sumber, perhitungan paid dan blended berikut memakai angka pelanggan baru yang sama. Artinya, contoh mengasumsikan 1.200 pelanggan baru itu memenuhi penyebut yang sesuai pada kedua metrik; jika atribusi kanal berbeda, penyebutnya harus dipisahkan.
+\[
+\begin{aligned}
+\CPA&=\frac{52.000.000}{2.000}=26.000,\\
+\CAC_{\text{paid}}&=\frac{52.000.000}{1.200}\approx43.333,\\
+\CAC_{\text{blended}}&=\frac{52.000.000+8.000.000}{1.200}=50.000.
+\end{aligned}
+\]
+Jadi CPA \rp{26.000}, CAC paid sekitar \rp{43.333}, dan CAC blended \rp{50.000}.
+
+\bagian{Pembelian berulang sebagai penutup CAC}
+Jika setiap pembelian menyumbang kontribusi \rp{10.000}, maka CAC \rp{50.000} secara sederhana memerlukan
+\[
+\frac{50.000}{10.000}=5
+\]
+kontribusi pembelian untuk menutup biaya akuisisi, sebelum biaya tetap dan diskonto. Jumlah tersebut merupakan hitungan penutup biaya, bukan jaminan bahwa pelanggan akan membeli lima kali.
+
+\bagian{Pengayaan: bias pembagi}
+Memasukkan pelanggan lama ke penyebut akan membuat CAC tampak lebih rendah, tetapi metrik itu tidak lagi mengukur biaya memperoleh pelanggan baru. Demikian pula, pembilang harus memiliki cakupan yang sesuai dengan pelanggan yang dihitung dalam penyebut.
+
+\bagian{Latihan dan pembahasan}
+Biaya akuisisi \rp{18.000.000} menghasilkan 300 pelanggan baru dan 900 pesanan. Jika biaya yang sama digunakan untuk menghitung biaya per pesanan,
+\[
+\CAC=\frac{18.000.000}{300}=60.000,\qquad
+\CPA=\frac{18.000.000}{900}=20.000.
+\]
+CAC \rp{60.000} dan CPA \rp{20.000} sama-sama benar untuk definisi tersebut, tetapi menjawab pertanyaan yang berbeda.
+\jembatan{CAC dibandingkan dengan nilai kontribusi pembelian berulang, yaitu LTV pada Modul 13. Profitabilitas pelanggan tidak selalu dapat dinilai dari transaksi pertama saja.}
+
+\modul{13}{Retensi, churn, LTV, dan LTV/CAC}
+\bagian{Retensi sebagai model geometrik}
+Retensi adalah proporsi pelanggan yang tetap aktif; churn adalah proporsi yang berhenti. Dalam model sederhana, pelanggan aktif pada periode awal dan memiliki peluang bertahan bersyarat \(r\) yang konstan setiap periode. Peluang masih aktif setelah \(t\) transisi adalah \(r^t\), dan
+\[
+h=1-r.
+\]
+Asumsi model mencakup retensi konstan, kontribusi periodik konstan, dan tidak adanya reaktivasi yang perlu dimodelkan terpisah. Pembelian berulang membuat nilai pelanggan dapat melebihi satu transaksi.
+
+\bagian{Ekspektasi umur dan penurunan LTV}
+Misalkan \(T\) jumlah periode aktif, termasuk periode awal \(t=0\). Untuk \(0\le r<1\), identitas jumlah peluang kelangsungan memberi
+\[
+\mathbb{E}[T]=\sum_{t=0}^{\infty}\Pr(T>t)
+=\sum_{t=0}^{\infty}r^t=\frac{1}{1-r}=\frac{1}{h}.
+\]
+Dengan kontribusi \(b\) per pelanggan per periode,
+\[
+\begin{aligned}
+\LTV&=\sum_{t=0}^{\infty}br^t
+=b\sum_{t=0}^{\infty}r^t\\
+&=\frac{b}{1-r}=\frac{b}{h}.
+\end{aligned}
+\]
+Rasio nilai terhadap biaya akuisisi, untuk CAC positif, adalah
+\[
+\frac{\LTV}{\CAC}=\frac{b}{(1-r)\CAC}.
+\]
+Istilah ``umur rata-rata'' di sini berarti ekspektasi jumlah periode kontribusi dalam konvensi diskret tersebut, bukan otomatis waktu hidup kontinu yang teramati.
+
+\bagian{Contoh retensi 85 persen}
+Retensi \(r=0{,}85\) memberi churn \(h=0{,}15\). Untuk kontribusi \rp{10.000} per bulan,
+\[
+\begin{aligned}
+\mathbb{E}[T]&=\frac{1}{0{,}15}\approx6{,}67\text{ periode bulanan},\\
+\LTV&=\frac{10.000}{0{,}15}\approx66.667,\\
+\frac{\LTV}{\CAC}&=\frac{10.000/0{,}15}{50.000}\approx1{,}33.
+\end{aligned}
+\]
+LTV sederhana sekitar \rp{66.667} dibandingkan CAC \rp{50.000} menghasilkan rasio sekitar \(1{,}33\).
+
+\bagian{Dampak retensi dan sifat nonlinier}
+Jika retensi naik menjadi \(0{,}90\), kontribusi tetap, maka
+\[
+\LTV=\frac{10.000}{1-0{,}90}=100.000,\qquad
+\frac{\LTV}{\CAC}=\frac{100.000}{50.000}=2.
+\]
+Hubungan \(\LTV=b/(1-r)\) nonlinier terhadap retensi. Mendekati retensi satu, model menjadi sangat peka terhadap perubahan asumsi. Pada \(r=1\), deret tanpa diskonto dengan kontribusi positif tidak konvergen.
+
+\bagian{Konvensi periode pertama}
+Jika hanya kontribusi pembelian ulang pada akhir bulan berikutnya yang dimasukkan, dan peluang bertahan ke bulan itu adalah \(r\), deret dimulai pada \(t=1\):
+\[
+\LTV_{\text{ulang}}=\sum_{t=1}^{\infty}br^t
+=\frac{br}{1-r}.
+\]
+Rumus ini berbeda dari rumus yang memasukkan kontribusi awal. Perbedaan muncul dari cakupan arus kontribusi, bukan kesalahan penjumlahan. Jika pembayaran pertama di akhir periode dijamin tanpa syarat kelangsungan, model peluangnya juga berbeda dan harus dinyatakan ulang.
+\catatan{Rumus LTV bergantung pada waktu kontribusi pertama, kestabilan retensi, dan apakah kontribusi bulanan benar-benar konstan. Kontribusi per periode perlu dibedakan dari kontribusi per pesanan.}
+
+\bagian{Latihan dan pembahasan}
+Churn \(20\%\), kontribusi \rp{15.000} per periode, dan CAC \rp{50.000}:
+\[
+\LTV=\frac{15.000}{0{,}20}=75.000,\qquad
+\frac{\LTV}{\CAC}=\frac{75.000}{50.000}=1{,}5.
+\]
+Hasil tersebut memasukkan periode awal dan belum didiskontokan.
+\jembatan{Kontribusi yang jauh di masa depan perlu didiskontokan agar dapat dibandingkan dengan biaya yang dikeluarkan sekarang. Ini menjadi pokok Modul 14.}
+
+\modul{14}{Nilai waktu uang dan kelayakan sederhana}
+\bagian{Nilai kini arus kas}
+Uang di masa depan tidak bernilai sama dengan uang sekarang. Dengan tingkat diskonto \(d\) per periode, nilai kini penerimaan \(CF_t\) pada akhir periode \(t\) adalah
+\[
+\PV_t=\frac{CF_t}{(1+d)^t}.
+\]
+Untuk beberapa arus kas, jumlahkan nilai kininya:
+\[
+\PV=\sum_{t=1}^{n}\frac{CF_t}{(1+d)^t}.
+\]
+Periode diskonto harus konsisten dengan periode arus kas. LTV terdiskonto membandingkan nilai kini kontribusi masa depan dengan CAC yang dibayar di awal.
+
+\bagian{Penurunan deret retensi terdiskonto}
+Jika kontribusi \(b\) pada akhir bulan \(t\) terjadi dengan peluang \(r^t\), nilai kini pembelian ulang adalah
+\[
+\begin{aligned}
+\PV_{\text{ulang}}
+&=\sum_{t=1}^{\infty}\frac{br^t}{(1+d)^t}\\
+&=b\sum_{t=1}^{\infty}\left(\frac{r}{1+d}\right)^t.
+\end{aligned}
+\]
+Ambil \(q=r/(1+d)\). Untuk \(d>-1\) dan \(|q|<1\), deret geometri \(\sum_{t=1}^{\infty}q^t=q/(1-q)\), sehingga
+\[
+\begin{aligned}
+\PV_{\text{ulang}}
+&=b\frac{r/(1+d)}{1-r/(1+d)}\\
+&=\frac{br}{1+d-r}.
+\end{aligned}
+\]
+Dalam model bisnis biasa \(r\ge0\), syarat konvergensinya menjadi \(r/(1+d)<1\). Jika kontribusi awal \(b_0\) diterima pada \(t=0\),
+\[
+\LTV_{\PV}=b_0+\frac{br}{1+d-r}.
+\]
+Ketika kontribusi awal sama dengan kontribusi periodik, \(b_0=b\).
+
+\bagian{Contoh rinci dan perbandingan dengan CAC}
+Dengan \(b=\rp{10.000}\) per bulan, \(r=0{,}85\), dan \(d=0{,}01\) per bulan,
+\[
+\begin{aligned}
+\PV_{\text{ulang}}&=\frac{10.000\times0{,}85}{1{,}01-0{,}85}\\
+&=\frac{8.500}{0{,}16}=53.125.
+\end{aligned}
+\]
+Jika kontribusi transaksi awal \rp{10.000} diterima pada \(t=0\),
+\[
+\LTV_{\PV}=10.000+53.125=63.125.
+\]
+LTV \rp{53.125} dan \rp{63.125} bukan dua hasil yang bertentangan: yang kedua memasukkan kontribusi pembelian awal.
+
+Dengan CAC \rp{50.000}, nilai kini kontribusi total melampaui biaya akuisisi sebesar
+\[
+63.125-50.000=13.125.
+\]
+Selisih positif ini belum memasukkan semua biaya dan ketidakpastian di luar model.
+
+\bagian{Sensitivitas terhadap diskonto}
+Jika tingkat diskonto naik menjadi \(d=0{,}02\),
+\[
+\PV_{\text{ulang}}=\frac{8.500}{1{,}02-0{,}85}
+=\frac{8.500}{0{,}17}=50.000.
+\]
+Dengan kontribusi awal \rp{10.000}, total menjadi \rp{60.000}. Semakin tinggi diskonto, semakin rendah nilai kini arus kas positif yang sama.
+
+\bagian{Pengayaan: NPV sederhana}
+Secara umum, nilai kini bersih adalah nilai kini manfaat dikurangi biaya awal:
+\[
+\NPV=\PV_{\text{manfaat}}-\text{biaya awal}.
+\]
+Jika biaya awal hanya CAC dan kontribusi awal turut dihitung,
+\[
+\begin{aligned}
+\NPV&=-\CAC+b_0+\sum_{t=1}^{\infty}\frac{br^t}{(1+d)^t}\\
+&=-\CAC+b_0+\frac{br}{1+d-r}.
+\end{aligned}
+\]
+Untuk contoh sebelumnya, NPV sederhana adalah \rp{13.125}. Keputusan layak tetap harus mempertimbangkan asumsi, biaya yang belum tercakup, dan risiko.
+
+\bagian{Latihan dan pembahasan}
+Kontribusi \rp{20.000} pada akhir tahun pertama dan \rp{22.000} pada akhir tahun kedua, dengan diskonto \(10\%\) per tahun, memberikan
+\[
+\begin{aligned}
+\PV&=\frac{20.000}{1{,}1}+\frac{22.000}{(1{,}1)^2}\\
+&\approx18.181{,}82+18.181{,}82\\
+&\approx36.364.
+\end{aligned}
+\]
+Hasil akhir dibulatkan ke rupiah terdekat.
+\jembatan{Modul 1--14 membentuk alur dari rasio, jumlah hasil, biaya, kontribusi, titik impas, pelanggan berulang, hingga nilai kini. Funnel, margin kontribusi, CAC, retensi, dan diskonto bersama-sama menilai kelayakan ekonomi pemasaran.}
+
+\clearpage
+\section{Peta terpadu 14 modul: satu model matematis}
+Misalkan \(I\) impresi, \(\theta=\CTR\), \(s=\CVR\), \(p\) harga, \(v\) biaya variabel, \(a=\CPA\), \(F\) biaya tetap, dan \(r\) retensi. Simbol \(\theta\) dipakai agar rasio klik tidak tertukar dengan indeks waktu \(t\).
+\[
+\begin{aligned}
+Q&=I\theta s,\\
+B&=aI\theta s,\\
+R&=pI\theta s,\\
+\text{kontribusi sebelum iklan}&=(p-v)I\theta s,\\
+L&=(p-v-a)I\theta s-F.
+\end{aligned}
+\]
+Untuk pelanggan baru \(N\), gunakan biaya akuisisi \(B_{\text{akuisisi}}\) yang sesuai cakupan pelanggan tersebut:
+\[
+\CAC=\frac{B_{\text{akuisisi}}}{N}.
+\]
+Jika seluruh biaya yang dimaksud hanya iklan, \(B_{\text{akuisisi}}=B\). Bila ada biaya akuisisi lain, tambahkan biaya itu secara konsisten.
+
+Untuk kontribusi periodik \(b\), retensi konstan, dan kontribusi awal \(b\) pada \(t=0\),
+\[
+\LTV=\frac{b}{1-r},\qquad
+\LTV_{\PV}=b+\frac{br}{1+d-r}.
+\]
+Model awal menghitung volume dan biaya; model akhir menguji apakah volume menghasilkan kontribusi yang memadai sekarang serta pada masa depan. Hubungan kontribusi per pesanan \(c=p-v\) dengan \(b\) memerlukan asumsi frekuensi pesanan per pelanggan per periode.
+
+\clearpage
+\bagian{Contoh terpadu: satu kampanye Kopi Loka}
+Gunakan harga \rp{65.000}, modal barang \rp{42.000}, anggaran iklan \rp{20.000.000}, impresi 1.000.000, CTR \(2\%\), dan CVR \(5\%\). Contoh ini merupakan latihan penghubung antarmodul, bukan pengganti perhitungan biaya penuh.
+\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{39mm}>{\raggedright\arraybackslash}p{72mm}>{\raggedright\arraybackslash}p{39mm}@{}}
+\toprule\textbf{Tahap}&\textbf{Perhitungan}&\textbf{Hasil}\\\midrule\endhead
+Klik&\(1.000.000\times0{,}02\)&20.000 klik\\
+Pesanan&\(20.000\times0{,}05\)&1.000 pesanan\\
+Omzet&\(1.000\times65.000\)&\rp{65.000.000}\\
+Margin kotor per pesanan&\(65.000-42.000\)&\rp{23.000}\\
+CPM&\(\dfrac{20.000.000}{1.000.000}\times1.000\)&\rp{20.000}\\\addlinespace[10pt]
+CPC&\(\dfrac{20.000.000}{20.000}\)&\rp{1.000}\\\addlinespace[10pt]
+CPA&\(\dfrac{20.000.000}{1.000}\)&\rp{20.000}\\\addlinespace[10pt]
+ROAS&\(\dfrac{65.000.000}{20.000.000}\)&\(3{,}25\)\\\addlinespace[10pt]
+Sisa setelah modal dan iklan&\(1.000\times23.000-20.000.000\)&\rp{3.000.000}\\
+\bottomrule
+\end{longtable}
+\normalsize
+\textbf{Perubahan penting pada Modul 8--10.} Jika biaya variabel penuh ternyata \rp{55.000} per pesanan, kontribusinya hanya \rp{10.000}. Dengan CPA \rp{20.000},
+\[
+c-a=10.000-20.000=-10.000.
+\]
+Setiap pesanan memberi kontribusi setelah iklan sebesar \(-\rp{10.000}\), bahkan sebelum biaya tetap. ROAS yang tampak baik dengan demikian belum membuktikan bahwa kampanye menguntungkan.
+
+\clearpage
+\section{Lembar ringkas rumus penghubung}
+\begingroup
+\setlength{\lineskip}{4pt}
+\setlength{\lineskiplimit}{4pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{45mm}>{\raggedright\arraybackslash}p{105mm}@{}}
+\toprule\textbf{Tahap}&\textbf{Rumus dan syarat}\\\midrule\endhead
+Tayangan, klik, pesanan&\(K=I\,\CTR\)\par\vspace{5pt}\(Q=K\,\CVR=I\,\CTR\,\CVR\).\\\addlinespace[10pt]
+Biaya iklan&\(\CPM=\dfrac{1.000B}{I}\), \(\CPC=\dfrac{B}{K}\), \(\CPA=\dfrac{B}{Q}\).\\\addlinespace[10pt]
+Biaya iklan dan funnel&\(\CPA=\dfrac{\CPM}{1.000\,\CTR\,\CVR}\).\\\addlinespace[10pt]
+Target anggaran&\(B=Q_{\text{target}}\CPA\).\\\addlinespace[10pt]
+Pendapatan dan kontribusi&\(R=pQ\), \(c=p-v\).\\\addlinespace[10pt]
+Laba dan titik impas&\(L=(c-\CPA)Q-F\).\par\vspace{5pt}\(Q_{\text{impas}}=\dfrac{F}{c-\CPA}\), untuk \(c>\CPA\), \(F>0\).\\\addlinespace[10pt]
+Batas CPA pada target&\(\CPA_{\text{maks}}=c-\dfrac{F}{Q}\), untuk \(Q>0\).\\\addlinespace[10pt]
+ROAS dan ROI sederhana&\(\ROAS=R/B\), \(\ROI=m\,\ROAS-1\).\par\vspace{5pt}\(\ROAS_{\text{impas}}=1/m\), untuk \(m>0\).\\\addlinespace[10pt]
+CAC dan nilai pelanggan&\(\CAC=\dfrac{\text{biaya akuisisi}}{N_{\text{baru}}}\); bandingkan \(\LTV/\CAC\).\\\addlinespace[10pt]
+Retensi dan churn&\(h=1-r\), \(\LTV=\dfrac{b}{1-r}\), termasuk kontribusi awal.\\\addlinespace[10pt]
+Nilai kini&\(\PV_t=\dfrac{CF_t}{(1+d)^t}\).\\\addlinespace[10pt]
+LTV terdiskonto&\(\LTV_{\PV}=b_0+\dfrac{br}{1+d-r}\), untuk \(\left|\dfrac{r}{1+d}\right|<1\).\\
+\bottomrule
+\end{longtable}
+\endgroup
+Semua pembagi harus memenuhi syarat domain. Persamaan laba memisahkan biaya iklan dari biaya variabel, sehingga biaya yang sama tidak dihitung dua kali. Rasio konversi menggunakan cakupan atribusi yang konsisten.
+
+\clearpage
+\section{Latihan evaluasi singkat beserta jawaban}
+\bagian{1. Menghitung hasil funnel}
+CTR \(2\%\) dan CVR \(5\%\). Berapa pesanan dari 500.000 impresi?
+\[
+Q=500.000\times0{,}02\times0{,}05=500\text{ pesanan}.
+\]
+\bagian{2. Menghitung CPA}
+CPC \rp{1.500} dan CVR \(3\%\). Berapa CPA?
+\[
+\CPA=\frac{1.500}{0{,}03}=50.000.
+\]
+Biaya per pesanan adalah \rp{50.000}.
+\bagian{3. Menentukan ROAS impas}
+Margin produk \(25\%\). Berapa ROAS impas sederhana?
+\[
+\ROAS_{\text{impas}}=\frac{1}{0{,}25}=4.
+\]
+Hasil ini menggunakan model laba kampanye \(L=mR-B\).
+\bagian{4. Menghitung pesanan impas}
+Kontribusi \rp{15.000}, CPA \rp{5.000}, dan biaya tetap \rp{20.000.000}:
+\[
+Q^*=\frac{20.000.000}{15.000-5.000}=2.000\text{ pesanan}.
+\]
+\bagian{5. Menghitung LTV sederhana}
+Retensi \(90\%\) dan kontribusi \rp{10.000} per bulan. Dengan kontribusi awal ikut dihitung,
+\[
+h=1-0{,}90=0{,}10,\qquad
+\LTV=\frac{10.000}{0{,}10}=100.000.
+\]
+LTV sederhana \rp{100.000} berlaku menurut asumsi kontribusi dan retensi konstan, tanpa diskonto.
+
+\clearpage
+\section{Glosarium mini dan catatan penggunaan}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{52mm}>{\raggedright\arraybackslash}p{98mm}@{}}
+\toprule\textbf{Istilah}&\textbf{Arti praktis}\\\midrule\endhead
+Impression / reach / frequency&Jumlah tayangan / jumlah akun terjangkau / rata-rata tayangan per akun.\\
+Click / CTR&Klik / proporsi tayangan yang menghasilkan klik.\\
+Conversion / CVR&Hasil sasaran / proporsi klik yang menghasilkan sasaran.\\
+CPM / CPC / CPA&Biaya per 1.000 tayangan / per klik / per hasil yang didefinisikan.\\
+ROAS / ROI&Rasio omzet terhadap iklan / rasio laba terhadap biaya yang ditetapkan. Dalam Modul 6, penyebut ROI adalah biaya iklan.\\
+Gross margin / contribution margin&Harga dikurangi modal barang / harga dikurangi seluruh biaya variabel yang didefinisikan. Rasio margin membagi selisih tersebut dengan harga.\\
+Break-even&Keadaan \(L=0\); pendapatan menutup seluruh biaya dalam model.\\
+CAC / LTV&Biaya memperoleh pelanggan baru / nilai kontribusi pelanggan sepanjang masa hubungan menurut model.\\
+Retention / churn&Proporsi pelanggan bertahan / berhenti dalam periode yang ditetapkan.\\
+Present value / NPV&Nilai kini arus kas / nilai kini bersih setelah pengurangan biaya yang relevan.\\
+\bottomrule
+\end{longtable}
+\bagian{Catatan penggunaan}
+Materi ini mendukung penjelasan dan pengaitan konsep matematika lintas modul. Untuk pelaksanaan pertemuan, urutan mingguan, penilaian, dan capaian pembelajaran resmi, cocokkan dengan RPS yang berlaku. Contoh sederhana sengaja mempertahankan asumsi eksplisit agar langkah matematis dapat ditelusuri. Pada data riil, atribusi, pajak, retur, variasi perilaku pelanggan, dan biaya tambahan dapat memerlukan model yang lebih lengkap.
+
+\bagian{Catatan penyuntingan dan sumber}
+Dokumen sumber: \emph{Panduan Lengkap Matematika Bisnis Modul 1--14 --- Persamaan Diperbaiki}, PDF 18 halaman yang diberikan pengguna. Ringkasan dan pendalaman yang sebelumnya terpisah digabungkan per modul. Kedua kelompok tabel dirapikan menjadi tabel terstruktur; semua contoh berbeda, latihan, penurunan, catatan ketelitian, dan sambungan antarmodul dipertahankan.
+
+Notasi diseragamkan: \(k\) untuk modal barang, \(c\) untuk kontribusi per pesanan, \(b\) untuk kontribusi per periode, \(\delta\) untuk diskon harga, \(d\) untuk diskonto, dan \(\tau\) untuk tarif biaya proporsional. Perincian asumsi CAC, waktu kontribusi LTV, domain, serta perubahan laba memperjelas model sumber tanpa mengubah hasil contoh utamanya.
+\end{document}
